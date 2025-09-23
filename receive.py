@@ -38,6 +38,8 @@ class ImageMsg(Msg):
 
 def responseText(message):
     message = message.strip()
+    print(f"收到消息: {message}")
+    return f"收到消息: {message}"
     if message.startswith("/"):
         # 配置各类指令的回复
         if message == "/help":
