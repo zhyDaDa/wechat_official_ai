@@ -4,7 +4,6 @@ import time
 import reply
 import receive
 import web
-from sparkdesk_web.core import SparkWeb
 from expiringdict import ExpiringDict
 import yaml
 
@@ -12,16 +11,10 @@ import yaml
 with open('config.yaml', 'r') as f:
     cfg = yaml.safe_load(f)
 
-sparkWeb = SparkWeb(
-    cookie=cfg["xinghuo_web"]["cookie"],
-    fd=cfg["xinghuo_web"]["fd"],
-    GtToken=cfg["xinghuo_web"]["GtToken"]
-)
-
 class Handle(object):
 
 
-    chat = sparkWeb.create_continuous_chat()
+    chat = lambda msg: f"chat get {msg}"
     cache = ExpiringDict(max_len=100, max_age_seconds=30)
 
     def GET(self):
