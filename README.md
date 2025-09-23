@@ -13,12 +13,13 @@
 
 ### 修改配置文件  
 
-打开配置文件config.yaml 配置三个参数 cookie fd gtToken  
-详细获取方式可以参考本文档 <https://www.bilibili.com/read/cv27066577/>
+打开配置文件config.yaml 配置参数
 
 ### 运行项目  
 
 ``sh start.sh``  
+
+对于docker部署, 可以使用 ``python3 main.py 80`` 直接运行
 
 ### 配置微信公众号
 
