@@ -15,7 +15,7 @@ class Handle(object):
     def responseText(message):
         message = message.strip()
         print(f"收到消息: {message}")
-        return f"收到消息: {message}"
+        # return f"收到消息: {message}"
         if message.startswith("/"):
             # 配置各类指令的回复
             if message == "/help":
@@ -71,7 +71,7 @@ class Handle(object):
                     Handle.cache[recMsg.MsgId] = answer
                     replyMsg = reply.TextMsg(toUser, fromUser, answer)
                     time.sleep(3)
-                    return "success"
+                    return replyMsg.send()
             else:
                 print("暂且不处理")
                 return "success"
