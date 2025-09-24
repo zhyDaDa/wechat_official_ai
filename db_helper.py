@@ -1,14 +1,19 @@
 import pymysql
+import yaml
 
 
 class DBHelper:
     def __init__(self):
+        with open("config.yaml", "r", encoding='utf-8') as f:
+            cfg = yaml.safe_load(f)
+        db_config = cfg['database']
+        
         self.conn = pymysql.connect(
-            host="127.0.0.1",
-            port=3306,
-            user="root",
-            password="mysql_t7kHiH",
-            database="1Panel-mysql-vSVY",
+            host=db_config['host'],
+            port=db_config['port'],
+            user=db_config['user'],
+            password=db_config['password'],
+            database=db_config['db_name'],
             charset="utf8mb4",
         )
         self.cursor = self.conn.cursor()

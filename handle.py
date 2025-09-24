@@ -12,6 +12,8 @@ with open("config.yaml", "r") as f:
 
 
 class Handle(object):
+    db = None  # 类属性，用于接收数据库实例
+
     def responseText(message):
         message = message.strip()
         print(f"收到消息: {message}")
@@ -50,6 +52,13 @@ class Handle(object):
             print("Handle Post webdata is ", webData)
             # 后台打日志
             recMsg = receive.parse_xml(webData)
+            if isinstance(recMsg, receive.Msg):
+                # 存储消息到数据库
+                if recMsg.MsgType == "text":
+                    self.db.insert_msg(recMsg.ToUserName, recMsg.FromUserName, recMsg.CreateTime, recMsg.MsgType, recMsg.MsgId, content=recMsg.Content)
+                elif recMsg.MsgType == "image":
+                    self.db.insert_image_msg(recMsg.ToUserName, recMsg.FromUserName, recMsg.CreateTime, recMsg.MsgType, recMsg.MsgId, pic_url=recMsg.PicUrl, media_id=recMsg.MediaId)
+
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == "text":
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
